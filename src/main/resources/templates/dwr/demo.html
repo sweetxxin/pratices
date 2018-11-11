@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+     <script type='text/javascript' src='/dwr/engine.js'></script>
+    <script type="text/javascript" src="/dwr/util.js"></script>
+    <script type='text/javascript' src='/dwr/interface/DwrService.js'></script>
+</head>
+<ul id="ul" style="font-size: 40px;color:red;"></ul>
+<input type="text" style="font-size: 25px" id="msg">
+<input type="button" value="提交" id="send">
+<script>
+    DwrService.echo('叫我小司马', function (str) {
+
+    });
+    window.onload = function (ev) {
+        dwr.engine.setActiveReverseAjax(true);
+
+        document.getElementById("send").onclick = function () {
+               DwrService.chat(document.getElementById("msg").value);
+         }
+     }
+     function chat(msg) {
+        console.log(msg);
+       document.getElementById("ul").innerHTML += "<br/>"+msg;
+     }
+</script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>通知模板</title>
+        <meta charset="UTF-8" />
+       <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+        function getObjectURL(file) {
+             var url = null;
+             if (window.createObjcectURL != undefined) {
+                 url = window.createOjcectURL(file);
+             } else if (window.URL != undefined) {
+                 url = window.URL.createObjectURL(file);
+             } else if (window.webkitURL != undefined) {
+                 url = window.webkitURL.createObjectURL(file);
+             }
+             return url;
+         }
+            $(function() {
+              $(".thumbs a").click(function() {
+                 var path = $(this).attr("href");
+                 var alt = $(this).attr("title");
+                 $("#largeImg").attr({
+                    src: path,
+                    alt: alt
+                 })
+                 return false;
+              });
+              $("#file").change(function() {
+                var file = this.files[0];
+                console.log(file);
+                var url = getObjectURL(file);
+                    $("#preView").attr("src",url);
+              })
+              var la = $("#large");
+              la.hide();
+              $("#preView").mouseover(function(e) {
+                la.css({
+                    top: e.pageY,
+                    left: e.pageX,
+                }).html("<img src='"+this.src+"'/>").show();
+              }).mouseout(function() {
+                la.hide();
+              })
+
+            });
+
+        </script>
+    </head>
+    <body>
+    <img id="preView" height="80" th:width="80">
+    <form action="/file/originUpload" method="post" enctype="multipart/form-data">
+        选择图片:<input type="file" id="file" name="upload">
+        <input type="submit">
+    </form>
+    <div id="large"></div>
+        <h2>图片预览</h2>
+        <p><img id="largeImg" src="/static/file/img/1.jpg" alt="大图"></p>
+        <p class="thumbs">
+         <a href="/static/file/img/1.jpg" title="img2"><img src="/static/file/img/1-thumb.jpg"></a>
+          <a href="/static/file/img/2.jpg" title="img2"><img src="/static/file/img/2-thumb.jpg"></a>
+           <a href="/static/file/img/3.jpg" title="img2"><img src="/static/file/img/3-thumb.jpg"></a>
+            <a href="/static/file/img/4.jpg" title="img2"><img src="/static/file/img/4-thumb.jpg"></a>
+             <a href="/static/file/img/5.jpg" title="img2"><img src="/static/file/img/5-thumb.jpg"></a>
+        </p>
+    </body>
+</html>

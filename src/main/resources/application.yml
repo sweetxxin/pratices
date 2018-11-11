@@ -1,0 +1,105 @@
+env:
+  host:
+    mq: 127.0.0.1
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      database-platform: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+  datasource:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/java?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: root
+      password:
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        initialSize: 5
+        minIdle: 5
+        maxActive: 20
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 20
+        filters: stat,wall,log4j
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  mail:
+      host: smtp.qq.com
+      username: 1208668915@qq.com
+      password: loavdpbrvzsujged
+      port: 587
+      properties:
+          mail:
+              smtp:
+                  auth: true
+                  timeout: 25000
+  thymeleaf:
+      cache: false
+      prefix: classpath:/templates/
+      suffix: .html
+      encoding: UTF-8
+      mode: HTML5
+#资源映射路径为/content/**
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  devtools:
+    restart:
+      enabled: true
+      exclude: templates/**
+#  ranbitmq 基本配置
+  rabbitmq:
+    addresses: 127.0.0.1:5672
+    username: guest
+    password: guest
+    virtual-host: /
+#    消费端
+    listener:
+      simple:
+        concurrency: 5
+        max-concurrency: 10
+        acknowledge-mode: manual
+        prefetch: 1
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+#  activemq:
+#    broker-url: tcp://${env.host.mq}:61616
+#    user: admin
+#    password: admin
+#    pool:
+#      enabled: true
+#      max-connections: 50
+#    packages:
+#      trust-all: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    database: 1

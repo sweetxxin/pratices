@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form action="/restful/get/service" method="post">
+    <input type="text" name="accessToken" id="token">
+    <input type="text" name="appId" value="1600502153">
+    <button type="submit"/>
+</form>
+</body>
+</html>
+<script>
+    var request = new XMLHttpRequest();
+    var data = "appId=1600502153&appSecret=admin&grant_type=test";
+    request.open("post","/restful/get/token");
+    request.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8;");
+    request.send(data);
+    request.onreadystatechange = function (ev) { 
+        if (request.status == 200 && request.readyState == 4){
+            var res = JSON.parse(request.responseText);
+            callback(res);
+        }
+     }
+     function callback(res) {
+           console.log(res.msg);
+           document.getElementById("token").value = res.msg;
+     }
+</script>
