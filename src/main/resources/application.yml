@@ -49,7 +49,7 @@ spring:
       prefix: classpath:/templates/
       suffix: .html
       encoding: UTF-8
-      mode: HTML5
+      mode: HTML
 #资源映射路径为/content/**
   mvc:
     static-path-pattern: /static/**
@@ -103,3 +103,5 @@ spring:
         max-idle: 8
         min-idle: 0
     database: 1
+server:
+  port: 8888
